@@ -58,7 +58,6 @@ struct eNode{
 
 struct stack{
     node stk[MAXSIZE]; // initialize stack and size
-    /* int top;  // stack attribute top */
 };
 
 
@@ -79,33 +78,24 @@ void print_inorder(bin_tree *tree){
 } // end print_inorder
 
 void push(char *nameA){
-    /* if (Stack.top == (MAXSIZE)){ */
     if(top == (MAXSIZE)){
     
         printf ("Error: Stack is Full!\n");
     }else{
         printf("\n*** Pushing new scope for %s ***\n", nameA);
-        /* printf("stack.top = %d\n", top); */
-        /* Stack.stk[Stack.top].root = NULL; */
-        /* Stack.stk[Stack.top].name = mallocCopy(nameA); */
         Stack.stk[top].root = NULL;
         Stack.stk[top].name = mallocCopy(nameA);
-        /* Stack.top = Stack.top + 1; */
         top++;
 
     }
 } // end push
 
 void pop (){
-    /* if (Stack.top == 0){ */
     if (top <= -1){
         printf ("Error: Stack is Empty!\n");
     }else{
-        /* printf("\n*** Popping Scope for %s ***\n", Stack.stk[Stack.top-1].name); */
-
         printf("\n*** Popping Scope for %s ***\n", Stack.stk[top-1].name);
         print_inorder(Stack.stk[top-1].root); // do I need this?
-        /* Stack.top = Stack.top - 1; */
         top--;
     }
 } // end pop
@@ -144,8 +134,6 @@ bin_tree* searchTree(char *name, bin_tree *tree){
         } else if(comp > 0){
             return searchTree(name, tree->right);
         }else{
-            /* printf("tree is returned: \n"); */
-            /* print_inorder(tree); */
             return tree;
         }
     }
@@ -153,23 +141,17 @@ bin_tree* searchTree(char *name, bin_tree *tree){
 } //end searchTree
 
 int addSymbol(char *symbol){
-    /* if (Stack.top == -1){ */
-        if (top <= 0){
+    if (top <= 0){
         printf ("Error: Stack is Empty!\n");
         return -1;
     }
-
-    /* bin_tree *found = searchTree(symbol, Stack.stk[Stack.top].root); */
-        bin_tree *found = searchTree(symbol, Stack.stk[top-1].root);    
-            /* printf("stack.top-1 in add symbol = %d\n", top-1); */
-
+    bin_tree *found = searchTree(symbol, Stack.stk[top-1].root);    
 
     if(found != NULL){
         printf("Error: Symbol already exists in local tree!\n");
         return -1;
 
     }else{
-        /* insert(symbol, &(Stack.stk[Stack.top].root)); */
         insert(symbol, &(Stack.stk[top-1].root));
         /* printf("Added symbol to local tree!\n"); */
         return 0;

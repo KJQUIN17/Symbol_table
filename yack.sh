@@ -10,7 +10,7 @@ fi
 
 /usr/bin/gcc lex.yy.c y.tab.c -o ada -ll -ly
 
-DEBUG_RUN=false
+DEBUG_RUN=true
 if ${DEBUG_RUN}; then
 
 ./ada < simpExpr.ada

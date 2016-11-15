@@ -13,15 +13,10 @@
 bin_tree* search_for_parent(char *type){
     bin_tree* found = NULL;
     int i;
-    /* while(Stack.top >= 1){ */
     for(i = top-1; i >= 0; i--){
-        /* printf("top = %d\n", i); */
-        /* bin_tree *temp = Stack.stk[Stack.top].root; */
         bin_tree *temp = Stack.stk[i].root;
         found = searchTree(type, temp);
         if(found != NULL){
-            /* printf("In search for parent, Got found\n"); */
-            /* print_inorder(found); */
             return found;            
         }
    
@@ -62,7 +57,6 @@ void parse_exception_list(idnodeptr list){
     while(list != NULL){
         int check = addSymbol(list->name);
         if(check != -1){
-            /* findInserted = searchTree(list->name, Stack.stk[Stack.top].root); */
             findInserted = searchTree(list->name, Stack.stk[top-1].root);
             findInserted->data.kind = mallocCopy("exception");
             findInserted->data.size = 1;
@@ -70,7 +64,6 @@ void parse_exception_list(idnodeptr list){
         }
         temp = list;
         list = list->next;
-        /* free(temp); */
         findInserted = NULL;
         typeSearch = NULL;
     }
